@@ -187,6 +187,7 @@ const getLinkPreviewAttributes = async (
     const browser = await puppeteer.launch({
         headless: true,
         args: [...puppeteerArgs],
+        executablePath: '/usr/bin/chromium-browser'
     });
 
     const page = await browser.newPage();
