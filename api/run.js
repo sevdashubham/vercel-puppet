@@ -185,8 +185,8 @@ const getLinkPreviewAttributes = async (
 ) => {
 
     const browser = await puppeteer.launch({
-        headless: true,
-        args: [...puppeteerArgs],
+        headless: false,
+        args: ["--no-sandbox", "--disabled-setupid-sandbox"],
         executablePath: '/usr/bin/chromium-browser'
     });
 
