@@ -219,7 +219,7 @@ module.exports = async (req, res, next) => {
 
     let data;
 
-    if (req.method === "GET") {
+    if (req.method === "OPTIONS") {
         try {
             data = await getLinkPreviewAttributes(url);
             res.status(200).send(data);
