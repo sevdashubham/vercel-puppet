@@ -1,3 +1,4 @@
+
 const puppeteer = require("puppeteer-extra");
 const AdblockerPlugin = require("puppeteer-extra-plugin-adblocker");
 const pluginStealth = require("puppeteer-extra-plugin-stealth");
@@ -213,7 +214,9 @@ const getLinkPreviewAttributes = async (
 };
 
 module.exports = async (req, res, next) => {
+    console.log(req.body)
     const { url } = req.body;
+
     let data;
 
     if (req.method === "POST") {
