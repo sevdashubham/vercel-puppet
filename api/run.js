@@ -1,13 +1,13 @@
 
 const puppeteer = require("puppeteer-extra");
 const AdblockerPlugin = require("puppeteer-extra-plugin-adblocker");
-const pluginStealth = require("puppeteer-extra-plugin-stealth");
+// const pluginStealth = require("puppeteer-extra-plugin-stealth");
 const util = require("util");
 const request = util.promisify(require("request"));
 const getUrls = require("get-urls");
 const isBase64 = require("is-base64");
 
-puppeteer.use(pluginStealth());
+// puppeteer.use(pluginStealth());
 puppeteer.use(AdblockerPlugin());
 
 const urlImageIsAccessible = async (url) => {
