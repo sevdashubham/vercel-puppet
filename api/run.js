@@ -214,12 +214,12 @@ const getLinkPreviewAttributes = async (
 };
 
 module.exports = async (req, res, next) => {
-    console.log(req)
-    const { url } = req.body;
+    console.log(req.query)
+    const { url } = req.query;
 
     let data;
 
-    if (req.method === "POST") {
+    if (req.method === "GET") {
         try {
             data = await getLinkPreviewAttributes(url);
             res.status(200).send(data);
