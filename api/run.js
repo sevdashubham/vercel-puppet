@@ -214,7 +214,7 @@ const getLinkPreviewAttributes = async (
 };
 
 module.exports = async (req, res, next) => {
-    console.log(req.body)
+    console.log(req)
     const { url } = req.body;
 
     let data;
