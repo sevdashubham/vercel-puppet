@@ -218,8 +218,10 @@ module.exports = async (req, res, next) => {
     const { url } = req.query;
 
     let data;
-
-    if (req.method === "OPTIONS") {
+    if (req.method === "GET") {
+        res.status(200).send('hi');
+    }
+    if (req.method === "GET") {
         try {
             console.log('hi')
             data = await getLinkPreviewAttributes(url);
