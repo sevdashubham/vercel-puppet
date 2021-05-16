@@ -184,19 +184,22 @@ const getLinkPreviewAttributes = async (
     puppeteerAgent = "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)"
 ) => {
 
-    const browser = await puppeteer.launch(process.env.AWS_EXECUTION_ENV ? {
-        args: chrome.args,
-        executablePath: await chrome.executablePath,
-        headless: chrome.headless
-    } : {
-        args: [],
-        executablePath:
-            process.platform === 'win32'
-                ? 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe'
-                : process.platform === 'linux'
-                ? '/usr/bin/google-chrome'
-                : '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
-    });
+    const options = process.env.AWS_REGION
+        ? {
+            args: chrome.args,
+            executablePath: await chrome.executablePath,
+            headless: chrome.headless
+        }
+        : {
+            args: [],
+            executablePath:
+                process.platform === 'win32'
+                    ? 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe'
+                    : process.platform === 'linux'
+                    ? '/usr/bin/google-chrome'
+                    : '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
+        };
+    const browser = await puppeteer.launch(options);
 
     const page = await browser.newPage();
     page.setUserAgent(puppeteerAgent);
