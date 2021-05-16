@@ -159,26 +159,26 @@ const getDescription = async (page) => {
     return description;
 };
 
-// const getDomainName = async (page, uri) => {
-//     const domainName = await page.evaluate(() => {
-//         const canonicalLink = (
-//             document.querySelector("link[rel=canonical]")
-//         );
-//         if (canonicalLink != null && canonicalLink.href.length > 0) {
-//             return canonicalLink.href;
-//         }
-//         const ogUrlMeta = (
-//             document.querySelector('meta[property="og:url"]')
-//         );
-//         if (ogUrlMeta != null && ogUrlMeta.content.length > 0) {
-//             return ogUrlMeta.content;
-//         }
-//         return null;
-//     });
-//     return domainName != null
-//         ? new URL(domainName).hostname.replace("www.", "")
-//         : new URL(uri).hostname.replace("www.", "");
-// };
+const getDomainName = async (page, uri) => {
+    const domainName = await page.evaluate(() => {
+        const canonicalLink = (
+            document.querySelector("link[rel=canonical]")
+        );
+        if (canonicalLink != null && canonicalLink.href.length > 0) {
+            return canonicalLink.href;
+        }
+        const ogUrlMeta = (
+            document.querySelector('meta[property="og:url"]')
+        );
+        if (ogUrlMeta != null && ogUrlMeta.content.length > 0) {
+            return ogUrlMeta.content;
+        }
+        return null;
+    });
+    return domainName != null
+        ? new URL(domainName).hostname.replace("www.", "")
+        : new URL(uri).hostname.replace("www.", "");
+};
 
 const getLinkPreviewAttributes = async (
     url,
@@ -186,31 +186,37 @@ const getLinkPreviewAttributes = async (
     puppeteerAgent = "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)"
 ) => {
 
-    const browser = await playwright.launchChromium({ headless: true })
-        const context = await browser.newContext();
-        const page = await context.newPage();
+    const browser = await playwright.launchChromium({headless: true,  args: [
+            '--disable-web-security', '--disable-features=IsolateOrigins,site-per-process'
+        ],})
+    const context = await browser.newContext({
+        javaScriptEnabled: false,
+        userAgent: "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)"
+    });
+    const page = await context.newPage();
+    await page.setDefaultTimeout(0);
+    await page.setViewportSize({
+        width: 640,
+        height: 480,
+    });
+    await page.exposeFunction("request", request);
+    await page.exposeFunction("urlImageIsAccessible", urlImageIsAccessible);
+    await page.goto(url);
+    const obj = {
+        title: "",
+        description: "",
+        domain: "",
+        img: "",
+    };
+    obj.title = await getTitle(page);
+    obj.description = await getDescription(page);
+    obj.domain = await getDomainName(page, url);
+    obj.img = await getImg(page, url);
 
-        // page.setUserAgent(puppeteerAgent);
-
-        await page.goto(url);
-        await page.exposeFunction("request", request);
-        await page.exposeFunction("urlImageIsAccessible", urlImageIsAccessible);
-
-        const obj = {
-            title: "",
-            description: "",
-            domain: "",
-            img: "",
-        };
-        obj.title = await getTitle(page);
-        obj.description = await getDescription(page);
-        // obj.domain = await getDomainName(page, url);
-        obj.img = await getImg(page, url);
-
-        console.log(11111);
-
-        await browser.close();
-        return obj;
+    await page.close();
+    console.log(11111);
+    await browser.close();
+    return obj;
 };
 
 module.exports = async (req, res, next) => {
