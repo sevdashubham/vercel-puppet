@@ -203,7 +203,7 @@ const getLinkPreviewAttributes = async (
     //     height: 480,
     // });
     await page.exposeFunction("request", request);
-    await page.exposeFunction("urlImageIsAccessible", urlImageIsAccessible);
+    // await page.exposeFunction("urlImageIsAccessible", urlImageIsAccessible);
     await page.goto(url);
     const obj = {
         title: "",
