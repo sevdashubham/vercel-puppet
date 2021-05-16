@@ -5,7 +5,9 @@
     "postinstall": "npm add chrome-aws-lambda request"
   },
   "dependencies": {
-    "playwright-core": "^1.11.0",
+    "chrome-aws-lambda": "^9.1.0",
+    "puppeteer-extra": "^3.1.18",
+    "request": "^2.88.2",
     "util": "^0.12.3"
   }
 }

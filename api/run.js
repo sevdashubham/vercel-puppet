@@ -3,7 +3,7 @@
 // const AdblockerPlugin = require("puppeteer-extra-plugin-adblocker");
 // const pluginStealth = require("puppeteer-extra-plugin-stealth");
 const chromium = require('chrome-aws-lambda');
-const playwright = require('playwright-core');
+const puppeteer = require('puppeteer-extra');
 
 const util = require("util");
 const request = util.promisify(require("request"));
@@ -25,71 +25,71 @@ const request = util.promisify(require("request"));
 //     }
 // };
 
-// const getImg = async (page, uri) => {
-//     const img = await page.evaluate(async () => {
-//         const ogImg = (
-//             document.querySelector('meta[property="og:image"]')
-//         );
-//         if (
-//             ogImg != null &&
-//             ogImg.content.length > 0 &&
-//             (await urlImageIsAccessible(ogImg.content))
-//         ) {
-//             return ogImg.content;
-//         }
-//         const imgRelLink = (
-//             document.querySelector('link[rel="image_src"]')
-//         );
-//         if (
-//             imgRelLink != null &&
-//             imgRelLink.href.length > 0 &&
-//             (await urlImageIsAccessible(imgRelLink.href))
-//         ) {
-//             return imgRelLink.href;
-//         }
-//         const twitterImg = (
-//             document.querySelector('meta[name="twitter:image"]')
-//         );
-//         if (
-//             twitterImg != null &&
-//             twitterImg.content.length > 0 &&
-//             (await urlImageIsAccessible(twitterImg.content))
-//         ) {
-//             return twitterImg.content;
-//         }
-//
-//         let imgs = Array.from(document.getElementsByTagName("img"));
-//         let src;
-//         if (imgs.length > 0) {
-//             imgs = imgs.filter((img) => {
-//                 let addImg = true;
-//                 if (img.naturalWidth > img.naturalHeight) {
-//                     if (img.naturalWidth / img.naturalHeight > 3) {
-//                         addImg = false;
-//                     }
-//                 } else {
-//                     if (img.naturalHeight / img.naturalWidth > 3) {
-//                         addImg = false;
-//                     }
-//                 }
-//                 if (img.naturalHeight <= 50 || img.naturalWidth <= 50) {
-//                     addImg = false;
-//                 }
-//                 return addImg;
-//             });
-//             if (imgs.length > 0) {
-//                 imgs.forEach((img) =>
-//                     img.src.indexOf("//") === -1
-//                         ? (img.src = `${new URL(uri).origin}/${src}`)
-//                         : img.src
-//                 );
-//                 return imgs[0].src;
-//             }
-//         }
-//         return null;
-//     });
-//     return img;
-// };
+const getImg = async (page, uri) => {
+    const img = await page.evaluate(async () => {
+        const ogImg = (
+            document.querySelector('meta[property="og:image"]')
+        );
+        if (
+            ogImg != null &&
+            ogImg.content.length > 0 &&
+            (await urlImageIsAccessible(ogImg.content))
+        ) {
+            return ogImg.content;
+        }
+        const imgRelLink = (
+            document.querySelector('link[rel="image_src"]')
+        );
+        if (
+            imgRelLink != null &&
+            imgRelLink.href.length > 0 &&
+            (await urlImageIsAccessible(imgRelLink.href))
+        ) {
+            return imgRelLink.href;
+        }
+        const twitterImg = (
+            document.querySelector('meta[name="twitter:image"]')
+        );
+        if (
+            twitterImg != null &&
+            twitterImg.content.length > 0 &&
+            (await urlImageIsAccessible(twitterImg.content))
+        ) {
+            return twitterImg.content;
+        }
+
+        let imgs = Array.from(document.getElementsByTagName("img"));
+        let src;
+        if (imgs.length > 0) {
+            imgs = imgs.filter((img) => {
+                let addImg = true;
+                if (img.naturalWidth > img.naturalHeight) {
+                    if (img.naturalWidth / img.naturalHeight > 3) {
+                        addImg = false;
+                    }
+                } else {
+                    if (img.naturalHeight / img.naturalWidth > 3) {
+                        addImg = false;
+                    }
+                }
+                if (img.naturalHeight <= 50 || img.naturalWidth <= 50) {
+                    addImg = false;
+                }
+                return addImg;
+            });
+            if (imgs.length > 0) {
+                imgs.forEach((img) =>
+                    img.src.indexOf("//") === -1
+                        ? (img.src = `${new URL(uri).origin}/${src}`)
+                        : img.src
+                );
+                return imgs[0].src;
+            }
+        }
+        return null;
+    });
+    return img;
+};
 
 const getTitle = async (page) => {
     const title = await page.evaluate(() => {
@@ -187,7 +187,7 @@ const getLinkPreviewAttributes = async (
     puppeteerAgent = "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)"
 ) => {
 
-    const browser = await playwright.chromium.launch({
+    const browser = await puppeteer.chromium.launch({
         args: chromium.args,
         executablePath: await chromium.executablePath,
         headless: chromium.headless,
