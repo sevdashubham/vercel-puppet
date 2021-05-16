@@ -735,7 +735,7 @@
     "debug" "^4.1.1"
     "deepmerge" "^4.2.2"
 
-"puppeteer@*":
+"puppeteer@*", "puppeteer@^9.1.1":
   "integrity" "sha512-W+nOulP2tYd/ZG99WuZC/I5ljjQQ7EUw/jQGcIb9eu8mDlZxNY2SgcJXTLG9h5gRvqA3uJOe4hZXYsd3EqioMw=="
   "resolved" "https://registry.npmjs.org/puppeteer/-/puppeteer-9.1.1.tgz"
   "version" "9.1.1"
@@ -873,6 +873,8 @@
     "tar-stream" "^2.1.4"
 
 "tar-fs@^2.1.1":
+  "integrity" "sha512-V0r2Y9scmbDRLCNex/+hYzvp/zyYjvFbHPNgVTKfQvVrb6guiE/fxP+XblDNR011utopbkex2nM4dHNV6GDsng=="
+  "resolved" "https://registry.npmjs.org/tar-fs/-/tar-fs-2.1.1.tgz"
   "version" "2.1.1"
   dependencies:
     "chownr" "^1.1.1"
