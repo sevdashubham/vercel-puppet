@@ -11,8 +11,4 @@
     "request": "^2.88.2",
     "util": "^0.12.3"
   },
-  "assets": "node_modules/puppeteer-extra-plugin-stealth/**/.",
-  "pkg": {
-    "assets": "node_modules/puppeteer-extra-plugin-stealth/**/*.*"
-  }
 }

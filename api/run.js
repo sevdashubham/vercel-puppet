@@ -157,26 +157,26 @@ const getDescription = async (page) => {
     return description;
 };
 
-const getDomainName = async (page, uri) => {
-    const domainName = await page.evaluate(() => {
-        const canonicalLink = (
-            document.querySelector("link[rel=canonical]")
-        );
-        if (canonicalLink != null && canonicalLink.href.length > 0) {
-            return canonicalLink.href;
-        }
-        const ogUrlMeta = (
-            document.querySelector('meta[property="og:url"]')
-        );
-        if (ogUrlMeta != null && ogUrlMeta.content.length > 0) {
-            return ogUrlMeta.content;
-        }
-        return null;
-    });
-    return domainName != null
-        ? new URL(domainName).hostname.replace("www.", "")
-        : new URL(uri).hostname.replace("www.", "");
-};
+// const getDomainName = async (page, uri) => {
+//     const domainName = await page.evaluate(() => {
+//         const canonicalLink = (
+//             document.querySelector("link[rel=canonical]")
+//         );
+//         if (canonicalLink != null && canonicalLink.href.length > 0) {
+//             return canonicalLink.href;
+//         }
+//         const ogUrlMeta = (
+//             document.querySelector('meta[property="og:url"]')
+//         );
+//         if (ogUrlMeta != null && ogUrlMeta.content.length > 0) {
+//             return ogUrlMeta.content;
+//         }
+//         return null;
+//     });
+//     return domainName != null
+//         ? new URL(domainName).hostname.replace("www.", "")
+//         : new URL(uri).hostname.replace("www.", "");
+// };
 
 const getLinkPreviewAttributes = async (
     url,
@@ -216,7 +216,7 @@ const getLinkPreviewAttributes = async (
     };
     obj.title = await getTitle(page);
     obj.description = await getDescription(page);
-    obj.domain = await getDomainName(page, url);
+    // obj.domain = await getDomainName(page, url);
     obj.img = await getImg(page, url);
 
     console.log(11111);
