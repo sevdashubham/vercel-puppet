@@ -1,10 +1,10 @@
 {
   "private": true,
   "scripts": {
-    "build": "AWS_LAMBDA_FUNCTION_NAME=true node api/run.js"
+    "build": "AWS_LAMBDA_FUNCTION_NAME=true node api/run.js",
+    "postinstall": "npm add chrome-aws-lambda"
   },
   "dependencies": {
-    "chrome-aws-lambda": "^9.1.0",
     "get-urls": "^10.0.0",
     "is-base64": "^1.1.0",
     "playwright-core": "^1.11.0",
