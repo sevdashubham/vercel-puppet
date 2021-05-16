@@ -7,8 +7,8 @@ const playwright = require('playwright-core');
 
 const util = require("util");
 const request = util.promisify(require("request"));
-const getUrls = require("get-urls");
-const isBase64 = require("is-base64");
+// const getUrls = require("get-urls");
+// const isBase64 = require("is-base64");
 
 // puppeteer.use(pluginStealth());
 // puppeteer.use(AdblockerPlugin());
