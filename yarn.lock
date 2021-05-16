@@ -779,29 +779,9 @@
   "resolved" "https://registry.npmjs.org/performance-now/-/performance-now-2.1.0.tgz"
   "version" "2.1.0"
 
-"playwright-chromium@^1.11.0":
-  "integrity" "sha512-CNV58vXoyItAXOuK9rgyESBmnwVMnQg12TBJEDq1IksJo9m2Gi1maReiMOOJAFduMhicvLGgRsQfdzm44KCcxA=="
-  "resolved" "https://registry.npmjs.org/playwright-chromium/-/playwright-chromium-1.11.0.tgz"
-  "version" "1.11.0"
-  dependencies:
-    "commander" "^6.1.0"
-    "debug" "^4.1.1"
-    "extract-zip" "^2.0.1"
-    "https-proxy-agent" "^5.0.0"
-    "jpeg-js" "^0.4.2"
-    "mime" "^2.4.6"
-    "pngjs" "^5.0.0"
-    "progress" "^2.0.3"
-    "proper-lockfile" "^4.1.1"
-    "proxy-from-env" "^1.1.0"
-    "rimraf" "^3.0.2"
-    "stack-utils" "^2.0.3"
-    "ws" "^7.3.1"
-    "yazl" "^2.5.1"
-
-"playwright-core@^1.11.0":
-  "integrity" "sha512-P5+FzindrR0wI48WVRBiJ59D1wgladPA7KzODAC+EZkwlrCQ6Pj2L0JkrKMCst/3g/x/nSLYcM+QXk2O3HJ/VQ=="
-  "resolved" "https://registry.npmjs.org/playwright-core/-/playwright-core-1.11.0.tgz"
+"playwright@^1.11.0":
+  "integrity" "sha512-s3FQBRpu/pW/vZ/lFYhG/Q3WBUbT2rvMgrgy1PHDA7QtPN910C2rj9Ovd6A/m8yxuLnltd/OKqvlAGevWISHKw=="
+  "resolved" "https://registry.npmjs.org/playwright/-/playwright-1.11.0.tgz"
   "version" "1.11.0"
   dependencies:
     "commander" "^6.1.0"

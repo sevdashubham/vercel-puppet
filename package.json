@@ -7,11 +7,8 @@
   "dependencies": {
     "get-urls": "^10.0.0",
     "is-base64": "^1.1.0",
-    "playwright-core": "^1.11.0",
+    "playwright": "^1.11.0",
     "request": "^2.88.2",
     "util": "^0.12.3"
-  },
-  "devDependencies": {
-    "playwright-chromium": "^1.11.0"
   }
 }
