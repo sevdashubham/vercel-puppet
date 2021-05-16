@@ -1,6 +1,6 @@
-
-const puppeteer = require("puppeteer-extra");
-const AdblockerPlugin = require("puppeteer-extra-plugin-adblocker");
+const chrome = require('chrome-aws-lambda');
+const puppeteer = require('puppeteer-core');
+// const AdblockerPlugin = require("puppeteer-extra-plugin-adblocker");
 // const pluginStealth = require("puppeteer-extra-plugin-stealth");
 const util = require("util");
 const request = util.promisify(require("request"));
@@ -8,7 +8,7 @@ const getUrls = require("get-urls");
 const isBase64 = require("is-base64");
 
 // puppeteer.use(pluginStealth());
-puppeteer.use(AdblockerPlugin());
+// puppeteer.use(AdblockerPlugin());
 
 const urlImageIsAccessible = async (url) => {
     const correctedUrls = getUrls(url);
@@ -184,10 +184,18 @@ const getLinkPreviewAttributes = async (
     puppeteerAgent = "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)"
 ) => {
 
-    const browser = await puppeteer.launch({
-        headless: false,
-        args: ["--no-sandbox", "--disabled-setupid-sandbox"],
-        executablePath: '/usr/bin/chromium-browser'
+    const browser = await puppeteer.launch(process.env.AWS_EXECUTION_ENV ? {
+        args: chrome.args,
+        executablePath: await chrome.executablePath,
+        headless: chrome.headless
+    } : {
+        args: [],
+        executablePath:
+            process.platform === 'win32'
+                ? 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe'
+                : process.platform === 'linux'
+                ? '/usr/bin/google-chrome'
+                : '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
     });
 
     const page = await browser.newPage();
