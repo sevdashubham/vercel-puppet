@@ -1,13 +1,12 @@
 {
   "private": true,
   "scripts": {
-    "build": "AWS_LAMBDA_FUNCTION_NAME=true node api/run.js",
-    "postinstall": "npm install playwright request"
+    "build": "AWS_LAMBDA_FUNCTION_NAME=true node api/run.js"
   },
   "dependencies": {
     "get-urls": "^10.0.0",
     "is-base64": "^1.1.0",
-    "playwright": "^1.11.0",
+    "playwright-aws-lambda": "^0.6.0",
     "request": "^2.88.2",
     "util": "^0.12.3"
   }
