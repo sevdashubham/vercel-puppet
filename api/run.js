@@ -190,7 +190,7 @@ const getLinkPreviewAttributes = async (
         const context = await browser.newContext();
         const page = await context.newPage();
 
-        page.setUserAgent(puppeteerAgent);
+        // page.setUserAgent(puppeteerAgent);
 
         await page.goto(url);
         await page.exposeFunction("request", request);
