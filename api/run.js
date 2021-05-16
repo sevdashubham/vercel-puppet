@@ -187,7 +187,7 @@ const getLinkPreviewAttributes = async (
 ) => {
 
     const browser = await playwright.launchChromium({headless: true,  args: [
-            '--disable-web-security', "--disable-gpu"
+            '--disable-client-side-phishing-detection'
         ],})
     const context = await browser.newContext({
         javaScriptEnabled: false,
