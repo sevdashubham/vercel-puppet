@@ -187,21 +187,21 @@ const getLinkPreviewAttributes = async (
     puppeteerAgent = "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)"
 ) => {
 
-    const browser = await puppeteer.chromium.launch({
+    const browser = await puppeteer.launch({
         args: chromium.args,
         executablePath: await chromium.executablePath,
         headless: chromium.headless,
     });
-    const context = await browser.newContext({
-        javaScriptEnabled: false,
-        userAgent: "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)"
-    });
-    const page = await context.newPage();
-    await page.setDefaultTimeout(0);
-    await page.setViewportSize({
-        width: 640,
-        height: 480,
-    });
+    // const context = await browser.newContext({
+    //     javaScriptEnabled: false,
+    //     userAgent: "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)"
+    // });
+    const page = await browser.newPage();
+    // await page.setDefaultTimeout(0);
+    // await page.setViewportSize({
+    //     width: 640,
+    //     height: 480,
+    // });
     await page.exposeFunction("request", request);
     await page.exposeFunction("urlImageIsAccessible", urlImageIsAccessible);
     await page.goto(url);
