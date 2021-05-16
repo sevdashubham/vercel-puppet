@@ -5,8 +5,6 @@
     "postinstall": "npm add chrome-aws-lambda request"
   },
   "dependencies": {
-    "get-urls": "^10.0.0",
-    "is-base64": "^1.1.0",
     "playwright-core": "^1.11.0",
     "util": "^0.12.3"
   }
