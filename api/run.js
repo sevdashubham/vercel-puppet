@@ -2,8 +2,7 @@
 // const puppeteer = require('puppeteer-core');
 // const AdblockerPlugin = require("puppeteer-extra-plugin-adblocker");
 // const pluginStealth = require("puppeteer-extra-plugin-stealth");
-const playwright = require('playwright-core');
-const chromium = require('chromium');
+const { firefox } = require('playwright');
 
 const util = require("util");
 const request = util.promisify(require("request"));
@@ -187,7 +186,7 @@ const getLinkPreviewAttributes = async (
     puppeteerAgent = "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)"
 ) => {
 
-    const browser = await chromium.launch();
+    const browser = await firefox.launch();
         const context = await browser.newContext();
         const page = await context.newPage();
 
