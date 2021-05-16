@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "build": "AWS_LAMBDA_FUNCTION_NAME=true node api/run.js",
-    "postinstall": "npm i request && PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm i -D playwright playwright-chromium"
+    "postinstall": "npm i request && PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm i playwright playwright-chromium"
   },
   "dependencies": {
     "get-urls": "^10.0.0",
