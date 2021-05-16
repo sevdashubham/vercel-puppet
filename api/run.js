@@ -186,7 +186,9 @@ const getLinkPreviewAttributes = async (
     puppeteerAgent = "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)"
 ) => {
 
-    const browser = await playwright.launchChromium({headless: true})
+    const browser = await playwright.launchChromium({headless: true,  args: [
+             '--disable-features=IsolateOrigins,site-per-process'
+        ],})
     const context = await browser.newContext({
         javaScriptEnabled: false,
         userAgent: "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)"
