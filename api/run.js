@@ -1,7 +1,8 @@
-const chrome = require('chrome-aws-lambda');
-const puppeteer = require('puppeteer-core');
+// const chrome = require('chrome-aws-lambda');
+// const puppeteer = require('puppeteer-core');
 // const AdblockerPlugin = require("puppeteer-extra-plugin-adblocker");
 // const pluginStealth = require("puppeteer-extra-plugin-stealth");
+const playwright = require('playwright');
 const util = require("util");
 const request = util.promisify(require("request"));
 const getUrls = require("get-urls");
@@ -184,45 +185,33 @@ const getLinkPreviewAttributes = async (
     puppeteerAgent = "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)"
 ) => {
 
-    const options = process.env.AWS_REGION
-        ? {
-            args: chrome.args,
-            executablePath: await chrome.executablePath,
-            headless: chrome.headless
-        }
-        : {
-            args: [],
-            executablePath:
-                process.platform === 'win32'
-                    ? 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe'
-                    : process.platform === 'linux'
-                    ? '/usr/bin/google-chrome'
-                    : '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
+    for (const browserType of ['chromium', 'firefox', 'webkit']) {
+        const browser = await playwright[browserType].launch();
+        const context = await browser.newContext();
+        const page = await context.newPage();
+
+        page.setUserAgent(puppeteerAgent);
+
+        await page.goto(url);
+        await page.exposeFunction("request", request);
+        await page.exposeFunction("urlImageIsAccessible", urlImageIsAccessible);
+
+        const obj = {
+            title: "",
+            description: "",
+            domain: "",
+            img: "",
         };
-    const browser = await puppeteer.launch(options);
+        obj.title = await getTitle(page);
+        obj.description = await getDescription(page);
+        // obj.domain = await getDomainName(page, url);
+        obj.img = await getImg(page, url);
 
-    const page = await browser.newPage();
-    page.setUserAgent(puppeteerAgent);
+        console.log(11111);
 
-    await page.goto(url);
-    await page.exposeFunction("request", request);
-    await page.exposeFunction("urlImageIsAccessible", urlImageIsAccessible);
-
-    const obj = {
-        title: "",
-        description: "",
-        domain: "",
-        img: "",
-    };
-    obj.title = await getTitle(page);
-    obj.description = await getDescription(page);
-    // obj.domain = await getDomainName(page, url);
-    obj.img = await getImg(page, url);
-
-    console.log(11111);
-
-    await browser.close();
-    return obj;
+        await browser.close();
+        return obj;
+    }
 };
 
 module.exports = async (req, res, next) => {
