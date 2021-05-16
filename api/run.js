@@ -3,7 +3,7 @@
 // const AdblockerPlugin = require("puppeteer-extra-plugin-adblocker");
 // const pluginStealth = require("puppeteer-extra-plugin-stealth");
 const playwright = require('playwright-core');
-const { chromium } = require('chromium');
+const chromium = require('chromium');
 
 const util = require("util");
 const request = util.promisify(require("request"));
