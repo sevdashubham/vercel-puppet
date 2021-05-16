@@ -2,8 +2,9 @@
 // const puppeteer = require('puppeteer-core');
 // const AdblockerPlugin = require("puppeteer-extra-plugin-adblocker");
 // const pluginStealth = require("puppeteer-extra-plugin-stealth");
-const playwright = require('playwright');
-const { chromium } = require('playwright');
+const playwright = require('playwright-core');
+const { chromium } = import('playwright-chromium');
+
 const util = require("util");
 const request = util.promisify(require("request"));
 const getUrls = require("get-urls");
@@ -186,7 +187,9 @@ const getLinkPreviewAttributes = async (
     puppeteerAgent = "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)"
 ) => {
 
-        const browser = await chromium.launch();
+    const browser = await playwright.chromium.launch({
+        executablePath: chromium.executablePath(),
+    });
         const context = await browser.newContext();
         const page = await context.newPage();
 
